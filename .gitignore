@@ -1,0 +1,5 @@
+# Specify filepatterns you want git to ignore.
+
+logfile.log
+ressources
+__pycache__
