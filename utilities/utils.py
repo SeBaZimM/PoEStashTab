@@ -1,9 +1,9 @@
 # utils.py
 # A bunch of utility functions
 
-import requests
-import json
 import os
+import json
+import requests
 
 from configuration import config
 
@@ -11,8 +11,10 @@ from configuration import config
 # Function: start_request
 # Request the data from the given account /league and the ressources
 #	Parameters:
-#		url 	--- type: str 		 --- the given url to start a request
-#		cookie  --- type: cookie_jar --- the saved session cookie from PoE
+#		url: the given url to start a request
+#			type: str
+#		cookie: the saved session cookie from PoE
+#			type: cookie_jar
 def start_request(url, cookie):
 	try:
 		response = requests.get(url, cookies=cookie)
@@ -25,46 +27,54 @@ def start_request(url, cookie):
 	except Exception as ex:
 		print('ERROR: {}'.format(ex))
 
-
 # Function: save_dump
 # Saved the league and characters ressources 
 # whithout given account/league informations
 #	Parameters:
-#		filename 	--- type: str  --- the filename to save
-#		res_json 	--- type: json --- the response json object
-#		ressources 	--- type: str  --- the url thet was requested
+#		filename: the filename to save
+#			type: str
+#		res_json: the response json object
+#			type: json
+#		ressources: the url thet was requested
+#			type: str 
 def save_dump(filename, res_json, ressource):
 	with open(filename, 'w') as json_file:
 		json.dump(res_json, json_file, indent=2)
 		write_logfile('logfile.log', os.getcwd(), filename, ressource)
 
-
 # Function: write_logfile
 # Saved the league and characters ressources 
 # whithout given account/league informations
 #	Parameters:
-#		logfile 	--- type: str --- the logfile to write
-#		dest_path 	--- type: str --- the information where the file was saved
-#		file 		--- type: str --- the filename that was saved
-#		ressources 	--- type: str --- the url from where the information is
-def write_logfile(logfile, dest_path, file, ressource):
+#		logfile: the logfile to write 	 
+#			type: str
+#		dest_path: the information where the file was saved 	 
+#			type: str
+#		filename: the filename that was saved 	 
+#			type: str
+#		ressources: the url from where the information is 	 
+#			type: str
+def write_logfile(logfile, dest_path, filename, ressource):
 	os.chdir(config.ROOTPATH)
 	with open(logfile, 'a+') as log:
 		output = '[PATH]{}\n[FILE]{}\n[RESSOURCE]{}\n'.format(
-			dest_path, file, ressource)
+			dest_path, filename, ressource)
 		log.write(output + '###################################################################\n')
-
 
 # Function: replace_placeholder
 # Replace the standart ACCOUNTNAME / LEAGUE in the url
 #	Parameters:
-#		url 	 --- type: str --- the given url to replace
-#		acc_name --- type: str --- the given Accountname
-#		league 	 --- type: str --- the given league
+#		url: the given url to replace 	  
+#			type: str
+#		acc_name: the given Accountname  
+#			type: str
+#		league: the given league 	  
+#			type: str
 def replace_placeholder(url, acc_name, league):
 	ph_accountname  = '[ACCOUNTNAME]'
 	ph_league		= '[LEAGUE]'
-	if ph_accountname in url: url =  url.replace(ph_accountname, acc_name)
-	if ph_league in url: 	  url =  url.replace(ph_league, league)
+	if ph_accountname in url:
+		url = url.replace(ph_accountname, acc_name)
+	if ph_league in url:
+		url = url.replace(ph_league, league)
 	return url
-	

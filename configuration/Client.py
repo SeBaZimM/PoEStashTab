@@ -3,9 +3,10 @@
 
 # IMPORTS
 import browser_cookie3
+from configuration import config
 
 class Client():
-	
+
 	def __init__(self, account_name, league):
 		self.account_name = account_name
 		self.league 	  = league
