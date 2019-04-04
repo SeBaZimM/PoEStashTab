@@ -1,5 +1,7 @@
 # Specify filepatterns you want git to ignore.
 
-logfile.log
+*.log
+*.ui
 ressources
 __pycache__
+gui
