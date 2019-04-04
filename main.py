@@ -1,11 +1,15 @@
-import asyncio
-
 from configuration import Client, Init
+from gui import test_start
 
-async def main():
-	client = Client.Client('Sanja0408','Synthesis')
-	init   = Init.Init(client.account_name, client.league, client.cookie_jar)
-	await asyncio.gather(init.update_stashtab(1))
+def main():
+
+	client = Client.Client('Sanja0408', 'Synthesis')
+	init = Init.Init(client)
+
+	init.setup()
+	# ui = test_start.Ui_Form()
+	# ui.start()
+
 
 if __name__ == '__main__':
-	asyncio.run(main())
+	main()
