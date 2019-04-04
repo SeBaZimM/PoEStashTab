@@ -28,7 +28,7 @@ class Init():
 	def setup(self):
 		if self.is_setup:
 			return
-		self.set_config(config),
+		config = self.set_config()
 		self.create_req_folders(config.REQUIRE_FOLDERS)
 		self.get_req_img(config.POE, config.REQUIRE_IMG)
 		self.get_leagues(config.POE + config.LEAGUES, self.client.cookie_jar)
@@ -43,7 +43,7 @@ class Init():
 	# Method: update_all
 	# Updates all data		
 	def update_all(self):
-		self.set_config(config)
+		config = self.set_config()
 		self.get_leagues(config.POE + config.LEAGUES, self.client.cookie_jar)
 		self.get_characters(config.POE + config.CHARACTERS, self.client.cookie_jar)
 		self.get_mtx_stash(config.POE + config.MTXSTASH, self.client.cookie_jar)
@@ -56,37 +56,37 @@ class Init():
 	# Method: update_leagues
 	# Updates the PoE leagues
 	def update_leagues(self):
-		self.set_config(config)
+		config = self.set_config()
 		self.get_leagues(config.POE + config.LEAGUES, self.client.cookie_jar)
 
 	# Method: update_characters
 	# Updates all characters
 	def update_characters(self):
-		self.set_config(config)
+		config = self.set_config()
 		self.get_characters(config.POE + config.CHARACTERS, self.client.cookie_jar)
 
 	# Method: update_mtxstash
 	# Updates the mtxstash
 	def update_mtxstash(self):
-		self.set_config(config)
+		config = self.set_config()
 		self.get_mtx_stash(config.POE + config.MTXSTASH, self.client.cookie_jar)
 
 	# Method: update_stash
 	# Updates the stash
 	def update_stash(self):
-		self.set_config(config)
+		config = self.set_config()
 		self.get_stash(config.POE + config.STASH, self.client.cookie_jar)
 
 	# Method: update_stashtab
 	# Updates a specific stashtab
 	def update_stashtab(self, tab):
-		self.set_config(config)
+		config = self.set_config()
 		self.get_stash_tab(config.POE + config.STASHTAB, tab, self.client.cookie_jar)
 
 	# Method: update_stashtabs
 	# Updates all stashtabs
 	def update_stashtabs(self):
-		self.set_config(config)
+		config = self.set_config()
 		self.get_stash_tabs(config.POE + config.STASHTAB, self.client.cookie_jar)
 
 	# Method: update_char_items
@@ -95,13 +95,13 @@ class Init():
 	#		char: the character name
 	#			type: str
 	def update_char_items(self, char, league):
-		self.set_config(config)
+		config = self.set_config()
 		self.get_char_items(config.POE + config.ITEMS, char, self.client.cookie_jar)
 
 	# Method: update_all_chars_items
 	# Updates all items from all characters
 	def update_all_chars_items(self):
-		self.set_config(config)
+		config = self.set_config()
 		self.get_chars_items(config.POE + config.ITEMS, self.client.cookie_jar)
 
 	# Method: update_char_passives
@@ -110,13 +110,13 @@ class Init():
 	#		char: the character name
 	#			type: str
 	def update_all_chars_passives(self, char, league):
-		self.set_config(config)
+		config = self.set_config()
 		self.get_char_passives(config.POE + config.PASSIVES, char, self.client.cookie_jar)
 
 	# Method: update_all_chars_passives
 	# Updates all passives from all characters	
 	def update_all_chars_passives(self):
-		self.set_config(config)
+		config = self.set_config()
 		self.get_chars_passives(config.POE + config.PASSIVES, self.client.cookie_jar)
 		
 
@@ -134,9 +134,8 @@ class Init():
 			with open(logfile, 'w') as log:
 				log.write('###################################################################\n')
 			return 
-		else: 
-			self.is_setup = True
-			return self.is_setup
+		self.is_setup = True
+		return self.is_setup
 
 
 	# Method: set_config
@@ -144,10 +143,9 @@ class Init():
 	#	Parameters:
 	#		conf: the configuration file
 	#			type: module 
-	def set_config(self, conf):
-		conf.ROOTPATH = self.path
-		conf.ACCOUNTNAME = self.client.account_name
-		conf.LEAGUE = self.client.league
+	def set_config(self):
+		config.ACCOUNTNAME = self.client.account_name
+		config.LEAGUE = self.client.league
 
 
 	# Method: create_req_folders
@@ -205,7 +203,8 @@ class Init():
 	#			type: cookie_jar
 	def get_characters(self, conf_url, cookie_jar):
 		response = utils.start_request(conf_url, cookie_jar)
-		for char in response: self.chars.append(char)
+		for char in response: 
+			self.chars.append(char)
 		utils.save_dump(self.path +'/ressources/characters/characters.json', response, conf_url)
 
 	
@@ -273,10 +272,14 @@ class Init():
 			for league in j_leagues['result']:
 				url_tmp = conf_url
 				conf_url = utils.replace_placeholder(conf_url, self.client.account_name, league['id'])
-				if league['id']   == 'Synthesis': 		   numTabs = self.num_tabs_synth
-				elif league['id'] == 'Hardcore Synthesis': numTabs = self.num_tabs_hc_synth
-				elif league['id'] == 'Standard': 		   numTabs = self.num_tabs_stand 
-				elif league['id'] == 'Hardcore': 		   numTabs = self.num_tabs_hc 
+				if league['id']   == 'Synthesis':
+					numTabs = self.num_tabs_synth
+				elif league['id'] == 'Hardcore Synthesis': 
+					numTabs = self.num_tabs_hc_synth
+				elif league['id'] == 'Standard':
+					numTabs = self.num_tabs_stand 
+				elif league['id'] == 'Hardcore':
+					numTabs = self.num_tabs_hc 
 				for tab in range(numTabs):
 					response = utils.start_request(conf_url + str(tab), cookie_jar)
 					utils.save_dump(self.path +'/ressources/stashTabs/' + league['id'] +'/stashtab'+str(tab)+'.json', response, conf_url + str(tab))
