@@ -26,8 +26,7 @@ def start_request(url, cookie):
 				if not cookie is None:
 					res_json = json.loads(response.text)
 					return res_json
-				else:
-					return response
+				return response
 		else:
 			raise Exception(response)
 	except Exception as ex:
