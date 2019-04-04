@@ -15,5 +15,22 @@ PASSIVES 	= '/character-window/get-passive-skills?character='
 REQUIRE_FOLDERS = [
 	'ressources', 
 	'ressources\\stashTabs',
-	'ressources\\characters'
+	'ressources\\characters',
+	'ressources\\images',
+	'ressources\\images\\inventory',
+]
+REQUIRE_IMG = [
+	'/image/inventory/MainInventory.png?1553142576000',
+	'/image/inventory/WeaponSwap1.png?1553142576000',
+	'/image/inventory/WeaponSwap2.png?1553142576000',
+	'/image/inventory/Stash.png?1553142576000',
+	'/image/inventory/StashPanelCurrency.png?1553142576000',
+	'/image/inventory/EssenceStashPanelGrid.png?1553142576000',
+	'/image/inventory/StashPanelDivinationCardBackground.png?1553142576000',
+	'/image/inventory/StashPanelMap.png?1553142576000',
+	'/image/inventory/StashPanelFragment.png?1553142576000',
+	'/image/inventory/MTXStash.png?1553142576000',
+	'/image/inventory/MTXListHeaderBackground.png?1553142576000',
+	'/image/inventory/tabs-control/ExpandButton.png?1553142576000',
+	'/image/layout/synthesis-bg.jpg?1553142582000',
 ]
