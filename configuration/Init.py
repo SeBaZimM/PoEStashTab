@@ -227,11 +227,10 @@ class Init:
 				conf_url = url_tmp
 
 
-	# TODO --------------------------------------
 	# Method: get_stash_tab
 	# Get one specific stashtab from the stash
 	#	Parameters:
-	#		conf_url: the given url; type: str
+	#		conf_url: the given url
 	#		tab: the specific stashtab
 	#		cookie_jar: the saved session cookie
 	def get_stash_tab(self, conf_url, tab, cookie_jar):
@@ -276,7 +275,6 @@ class Init:
 		utils.save_dump(self.path +'/ressources/stashTabs/mtxstash.json', response, conf_url)
 
 
-	# TODO --------------------------------------
 	# Method: get_char_items
 	# Get all the items from a character
 	#	Parameters:
