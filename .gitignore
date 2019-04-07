@@ -2,6 +2,7 @@
 
 *.log
 *.ui
+.idea
 ressources
 __pycache__
 gui

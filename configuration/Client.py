@@ -3,10 +3,9 @@
 
 # IMPORTS
 import browser_cookie3
-from configuration import config
+import configuration.config as config
 
-class Client():
-
+class Client:
 	def __init__(self, account_name, league):
 		self.account_name = account_name
 		self.league 	  = league

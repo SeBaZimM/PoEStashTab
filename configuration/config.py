@@ -1,6 +1,7 @@
 # config.py
 # Contains the configuration for the app
 
+
 ROOTPATH	= ''
 ACCOUNTNAME = '[ACCOUNTNAME]'
 LEAGUE 		= '[LEAGUE]'

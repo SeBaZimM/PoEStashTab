@@ -4,129 +4,123 @@
 # IMPORTS
 import os
 import json
+import utilities.utils as utils
+import configuration.config as config
 
-from utilities import utils
-from configuration import config
 
-
-class Init():
-
+class Init:
 	def __init__(self, client):
-		self.client		  		= client
-		self.path 		  		= os.getcwd()
-		self.num_tabs_synth 	= 0
-		self.num_tabs_hc_synth	= 0
-		self.num_tabs_stand		= 0
-		self.num_tabs_hc	  	= 0
-		self.chars 		  		= list()
-		self.is_setup 	  		= False
+		self.client = client
+		self.path = os.getcwd()
+		self.num_tabs_synth = 0
+		self.num_tabs_hc_synth = 0
+		self.num_tabs_stand = 0
+		self.num_tabs_hc = 0
+		self.chars = list()
+		self.is_setup = False
 		self.check_setup('logfile.log')
 
 
 	# Method: setup
 	# The setup method to start the setup
 	def setup(self):
-		if self.is_setup:
-			return
-		config = self.set_config()
-		self.create_req_folders(config.REQUIRE_FOLDERS)
-		self.get_req_img(config.POE, config.REQUIRE_IMG)
-		self.get_leagues(config.POE + config.LEAGUES, self.client.cookie_jar)
-		self.get_characters(config.POE + config.CHARACTERS, self.client.cookie_jar)
-		self.get_mtx_stash(config.POE + config.MTXSTASH, self.client.cookie_jar)
-		self.get_stash(config.POE + config.STASH, self.client.cookie_jar)
-		self.get_stash_tabs(config.POE + config.STASHTAB, self.client.cookie_jar)
-		self.get_chars_items(config.POE + config.ITEMS, self.client.cookie_jar)
-		self.get_chars_passives(config.POE + config.PASSIVES, self.client.cookie_jar)
+		#if self.is_setup:
+		#	return
+		conf = self.set_config()
+		self.create_req_folders(conf.REQUIRE_FOLDERS)
+		self.get_req_img(conf.POE, conf.REQUIRE_IMG)
+		self.get_leagues(conf.POE + conf.LEAGUES, self.client.cookie_jar)
+		self.get_characters(conf.POE + conf.CHARACTERS, self.client.cookie_jar)
+		self.get_mtx_stash(conf.POE + conf.MTXSTASH, self.client.cookie_jar)
+		self.get_stash(conf.POE + conf.STASH, self.client.cookie_jar)
+		self.get_stash_tabs(conf.POE + conf.STASHTAB, self.client.cookie_jar)
+		self.get_chars_items(conf.POE + conf.ITEMS, self.client.cookie_jar)
+		self.get_chars_passives(conf.POE + conf.PASSIVES, self.client.cookie_jar)
 
 
 	# Method: update_all
 	# Updates all data		
 	def update_all(self):
-		config = self.set_config()
-		self.get_leagues(config.POE + config.LEAGUES, self.client.cookie_jar)
-		self.get_characters(config.POE + config.CHARACTERS, self.client.cookie_jar)
-		self.get_mtx_stash(config.POE + config.MTXSTASH, self.client.cookie_jar)
-		self.get_stash(config.POE + config.STASH, self.client.cookie_jar)
-		self.get_stash_tabs(config.POE + config.STASHTAB, self.client.cookie_jar)
-		self.get_chars_items(config.POE + config.ITEMS, self.client.cookie_jar)
-		self.get_chars_passives(config.POE + config.PASSIVES, self.client.cookie_jar)
+		conf = self.set_config()
+		self.get_leagues(conf.POE + conf.LEAGUES, self.client.cookie_jar)
+		self.get_characters(conf.POE + conf.CHARACTERS, self.client.cookie_jar)
+		self.get_mtx_stash(conf.POE + conf.MTXSTASH, self.client.cookie_jar)
+		self.get_stash(conf.POE + conf.STASH, self.client.cookie_jar)
+		self.get_stash_tabs(conf.POE + conf.STASHTAB, self.client.cookie_jar)
+		self.get_chars_items(conf.POE + conf.ITEMS, self.client.cookie_jar)
+		self.get_chars_passives(conf.POE + conf.PASSIVES, self.client.cookie_jar)
 
 
 	# Method: update_leagues
 	# Updates the PoE leagues
 	def update_leagues(self):
-		config = self.set_config()
-		self.get_leagues(config.POE + config.LEAGUES, self.client.cookie_jar)
+		conf = self.set_config()
+		self.get_leagues(conf.POE + conf.LEAGUES, self.client.cookie_jar)
 
 	# Method: update_characters
 	# Updates all characters
 	def update_characters(self):
-		config = self.set_config()
-		self.get_characters(config.POE + config.CHARACTERS, self.client.cookie_jar)
+		conf = self.set_config()
+		self.get_characters(conf.POE + conf.CHARACTERS, self.client.cookie_jar)
 
 	# Method: update_mtxstash
 	# Updates the mtxstash
 	def update_mtxstash(self):
-		config = self.set_config()
-		self.get_mtx_stash(config.POE + config.MTXSTASH, self.client.cookie_jar)
+		conf = self.set_config()
+		self.get_mtx_stash(conf.POE + conf.MTXSTASH, self.client.cookie_jar)
 
 	# Method: update_stash
 	# Updates the stash
 	def update_stash(self):
-		config = self.set_config()
-		self.get_stash(config.POE + config.STASH, self.client.cookie_jar)
+		conf = self.set_config()
+		self.get_stash(conf.POE + conf.STASH, self.client.cookie_jar)
 
 	# Method: update_stashtab
 	# Updates a specific stashtab
 	def update_stashtab(self, tab):
-		config = self.set_config()
-		self.get_stash_tab(config.POE + config.STASHTAB, tab, self.client.cookie_jar)
+		conf = self.set_config()
+		self.get_stash_tab(conf.POE + conf.STASHTAB, tab, self.client.cookie_jar)
 
 	# Method: update_stashtabs
 	# Updates all stashtabs
 	def update_stashtabs(self):
-		config = self.set_config()
-		self.get_stash_tabs(config.POE + config.STASHTAB, self.client.cookie_jar)
+		conf = self.set_config()
+		self.get_stash_tabs(conf.POE + conf.STASHTAB, self.client.cookie_jar)
 
 	# Method: update_char_items
 	# Updates all items from a character
 	#	Parameters:
 	#		char: the character name
-	#			type: str
 	def update_char_items(self, char, league):
-		config = self.set_config()
-		self.get_char_items(config.POE + config.ITEMS, char, self.client.cookie_jar)
+		conf = self.set_config()
+		self.get_char_items(conf.POE + conf.ITEMS, char, self.client.cookie_jar)
 
 	# Method: update_all_chars_items
 	# Updates all items from all characters
 	def update_all_chars_items(self):
-		config = self.set_config()
-		self.get_chars_items(config.POE + config.ITEMS, self.client.cookie_jar)
+		conf = self.set_config()
+		self.get_chars_items(conf.POE + conf.ITEMS, self.client.cookie_jar)
 
 	# Method: update_char_passives
 	# Updates all passives from a character
 	#	Parameters:
 	#		char: the character name
-	#			type: str
-	def update_all_chars_passives(self, char, league):
-		config = self.set_config()
-		self.get_char_passives(config.POE + config.PASSIVES, char, self.client.cookie_jar)
+	def update_char_passives(self, char, league):
+		conf = self.set_config()
+		self.get_char_passives(conf.POE + conf.PASSIVES, char, self.client.cookie_jar)
 
 	# Method: update_all_chars_passives
 	# Updates all passives from all characters	
 	def update_all_chars_passives(self):
-		config = self.set_config()
-		self.get_chars_passives(config.POE + config.PASSIVES, self.client.cookie_jar)
+		conf = self.set_config()
+		self.get_chars_passives(conf.POE + conf.PASSIVES, self.client.cookie_jar)
 		
 
 	# Method: check_setup
 	# Checking if a setup was already taken
 	#	Parameters:
 	#		logfile: the logfile to check / create
-	#			type: str
 	#		is_setup: the answer if a setup has been done
-	#			type: bool
 	#	Return:
 	#		is_setup
 	def check_setup(self, logfile):
@@ -142,17 +136,16 @@ class Init():
 	# Sets the information in the config
 	#	Parameters:
 	#		conf: the configuration file
-	#			type: module 
 	def set_config(self):
 		config.ACCOUNTNAME = self.client.account_name
 		config.LEAGUE = self.client.league
+		return config
 
 
 	# Method: create_req_folders
 	# Creates the required folders given from the config
 	#	Parameters:
 	#		req_folders: the requiered folders
-	#			type: list
 	def create_req_folders(self, req_folders):
 		for req_folder in req_folders:
 			if not os.path.exists(self.path +'/'+ req_folder):
@@ -162,10 +155,8 @@ class Init():
 	# Method: get_req_img
 	# Downloads the required images given from the config
 	#	Parameters:
-	#		conf_url: the given url 
-	#			type: str
+	#		conf_url: the given url
 	#		img_urls: the requiered images
-	#			type: list
 	def get_req_img(self, conf_url, img_urls):
 		for img_url in img_urls:
 			if 'synthesis' in img_url:
@@ -185,10 +176,8 @@ class Init():
 	# Method: get_leagues
 	# Get all leagues from PoE
 	#	Parameters:
-	#		conf_url: the given url 
-	#			type: str
+	#		conf_url: the given url
 	#		cookie_jar: the saved session cookie
-	#			type: cookie_jar
 	def get_leagues(self, conf_url, cookie_jar):
 		response = utils.start_request(conf_url, cookie_jar)
 		utils.save_dump(self.path +'/ressources/leagues.json', response, conf_url)
@@ -197,10 +186,8 @@ class Init():
 	# Method: get_characters
 	# Get all the characters from account
 	#	Parameters:
-	#		conf_url: the given url 
-	#			type: str
+	#		conf_url: the given url
 	#		cookie_jar: the saved session cookie
-	#			type: cookie_jar
 	def get_characters(self, conf_url, cookie_jar):
 		response = utils.start_request(conf_url, cookie_jar)
 		for char in response: 
@@ -211,10 +198,8 @@ class Init():
 	# Method: get_stash
 	# Get all the stash from account
 	#	Parameters:
-	#		conf_url: the given url 
-	#			type: str
+	#		conf_url: the given url
 	#		cookie_jar: the saved session cookie
-	#			type: cookie_jar
 	def get_stash(self, conf_url, cookie_jar):
 		with open(self.path +'/ressources/leagues.json','r') as leagues:
 			j_leagues = json.load(leagues)
@@ -246,12 +231,9 @@ class Init():
 	# Method: get_stash_tab
 	# Get one specific stashtab from the stash
 	#	Parameters:
-	#		conf_url: the given url 
-	#			type: str
+	#		conf_url: the given url; type: str
 	#		tab: the specific stashtab
-	#			type: str / int
 	#		cookie_jar: the saved session cookie
-	#			type: cookie_jar
 	def get_stash_tab(self, conf_url, tab, cookie_jar):
 		conf_url = utils.replace_placeholder(conf_url, self.client.account_name, self.client.league)
 		os.chdir(self.path +'/ressources/stashTabs')
@@ -262,10 +244,8 @@ class Init():
 	# Method: get_stash_tabs
 	# Get all the stashtabs from the stash
 	#	Parameters:
-	#		conf_url: the given url 
-	#			type: str
+	#		conf_url: the given url
 	#		cookie_jar: the saved session cookie
-	#			type: cookie_jar
 	def get_stash_tabs(self, conf_url, cookie_jar):
 		with open(self.path +'/ressources/leagues.json','r') as leagues:
 			j_leagues = json.load(leagues)
@@ -290,9 +270,7 @@ class Init():
 	# Get the mtx stash from account
 	#	Parameters:
 	#		conf_url: the given url 
-	#			type: str
 	#		cookie_jar: the saved session cookie
-	#			type: cookie_jar
 	def get_mtx_stash(self, conf_url, cookie_jar):
 		response = utils.start_request(conf_url, cookie_jar)
 		utils.save_dump(self.path +'/ressources/stashTabs/mtxstash.json', response, conf_url)
@@ -303,13 +281,9 @@ class Init():
 	# Get all the items from a character
 	#	Parameters:
 	#		conf_url: the given url 
-	#			type: str
 	#		char: the charactername
-	#			type: str
 	#		league: the league
-	#			type: str
 	#		cookie_jar: the saved session cookie
-	#			type: cookie_jar
 	def get_char_items(self, conf_url, char, league, cookie_jar):
 		os.chdir(self.path +'/ressources/characters/')
 		if not os.path.exists(os.getcwd() +'/'+ league +'/'+ char):
@@ -323,9 +297,7 @@ class Init():
 	# Get all the items from all characters
 	#	Parameters:
 	#		conf_url: the given url 
-	#			type: str
 	#		cookie_jar: the saved session cookie
-	#			type: cookie_jar
 	def get_chars_items(self, conf_url, cookie_jar):
 		for char in self.chars:
 			if not os.path.exists(self.path +'/ressources/characters/'+ char['league']):
@@ -333,20 +305,16 @@ class Init():
 			if not os.path.exists(self.path +'/ressources/characters/'+ char['league'] +'/'+ char['name']):
 				os.mkdir(self.path +'/ressources/characters/'+ char['league'] +'/'+ char['name'])
 			response = utils.start_request(conf_url + char['name'], cookie_jar)
-			utils.save_dump(self.path +'/ressources/characters/'+ char['league'] +'/items.json', response, conf_url + char['name'])
+			utils.save_dump(self.path +'/ressources/characters/'+ char['league'] +'/'+ char['name'] +'/items.json', response, conf_url + char['name'])
 
 
 	# Method: get_char_passives
 	# Get all the passives from a character
 	#	Parameters:
 	#		conf_url: the given url 
-	#			type: str
 	#		char: the charactername
-	#			type: str
 	#		league: the league
-	#			type: str
 	#		cookie_jar: the saved session cookie
-	#			type: cookie_jar
 	def get_char_passives(self, conf_url, char, league, cookie_jar):
 		if not os.path.exists(self.path +'/ressources/characters/'+ league +'/'+ char):
 			os.mkdir(self.path +'/ressources/characters/'+ league +'/'+ char)
@@ -358,9 +326,7 @@ class Init():
 	# Get all the passives from all characters
 	#	Parameters:
 	#		conf_url: the given url 
-	#			type: str
 	#		cookie_jar: the saved session cookie
-	#			type: cookie_jar
 	def get_chars_passives(self, conf_url, cookie_jar):
 		for char in self.chars:
 			if not os.path.exists(self.path +'/ressources/characters/'+ char['league']):

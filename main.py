@@ -1,5 +1,4 @@
 from configuration import Client, Init
-from gui import test_start
 
 def main():
 
@@ -7,8 +6,8 @@ def main():
 	init = Init.Init(client)
 
 	init.setup()
-	# ui = test_start.Ui_Form()
-	# ui.start()
+	#ui = test_start.Ui_Form()
+	#ui.start()
 
 
 if __name__ == '__main__':

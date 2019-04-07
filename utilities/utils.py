@@ -1,23 +1,19 @@
 # utils.py
 # A bunch of utility functions
 
+# IMPORTS
 import os
 import json
 import requests
-
-from configuration import config
 
 
 # Function: start_request
 # Start a request from a given url
 #	Parameters:
 #		url: the given url to start a request
-#			type: str
 #		cookie: the saved session cookie from PoE
-#			type: cookie_jar
 #	Return:
 #		res_json: an json object including the information
-#			type: json
 def start_request(url, cookie):
 	try:
 		response = requests.get(url, cookies=cookie)
@@ -37,11 +33,8 @@ def start_request(url, cookie):
 # Saved the given information as an json object
 #	Parameters:
 #		filename: the filename to save
-#			type: str
 #		res_json: the response json object
-#			type: json
 #		ressources: the url thet was requested
-#			type: str 
 def save_dump(filename, res_json, ressource):
 	if res_json is None:
 		return
@@ -54,11 +47,8 @@ def save_dump(filename, res_json, ressource):
 # Saved the given information as an json object
 #	Parameters:
 #		filename: the filename to save
-#			type: str
 #		res_json: the response json object
-#			type: json
 #		ressources: the url thet was requested
-#			type: str 
 def save_img(filename, response, ressource):
 	with open(os.getcwd() +'/ressources/images/inventory/' + filename, 'wb') as img:
 		img.write(response.content)
@@ -69,11 +59,8 @@ def save_img(filename, response, ressource):
 # Write the given parameters into the logfile
 #	Parameters:
 #		logfile: the logfile to write 	 
-#			type: str
 #		filename: the filename that was saved 	 
-#			type: str
 #		ressources: the url from where the information is 	 
-#			type: str
 def write_logfile(logfile, filename, ressource):
 	with open(logfile, 'a+') as log:
 		output = '[FILE]{}\n[RESSOURCE]{}\n'.format(
@@ -85,11 +72,8 @@ def write_logfile(logfile, filename, ressource):
 # Replace the default ACCOUNTNAME / LEAGUE in the url
 #	Parameters:
 #		url: the given url to replace 	  
-#			type: str
 #		acc_name: the given Accountname  
-#			type: str
 #		league: the given league 	  
-#			type: str
 def replace_placeholder(url, acc_name, league):
 	ph_accountname  = '[ACCOUNTNAME]'
 	ph_league		= '[LEAGUE]'
