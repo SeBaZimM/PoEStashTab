@@ -3,7 +3,7 @@
 
 # IMPORTS
 import browser_cookie3
-from configuration import config
+from configuration import config 
 
 class Client():
 
